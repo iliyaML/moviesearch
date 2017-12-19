@@ -14,7 +14,7 @@ class Main extends Component {
         e.preventDefault();
         const input = this.refs.input.value;
 
-        axios.get(`http://www.omdbapi.com/?apikey=5b08bfa9&s=${input}`)
+        axios.get(`https://www.omdbapi.com/?apikey=5b08bfa9&s=${input}`)
             .then(response => {
                 console.log(response.data);
                 if (response.data.Response !== "False") {
