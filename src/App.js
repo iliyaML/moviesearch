@@ -7,9 +7,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <main role="main" className="container">
-          <Main />
-        </main>
+        <Main />
       </div>
     );
   }

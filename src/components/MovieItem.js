@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import noimage from '../no_image_available.jpeg';
+import { Link } from 'react-router-dom';
 
 class MovieItem extends Component {
     constructor(props){
@@ -13,11 +14,11 @@ class MovieItem extends Component {
         const image = (this.state.item.Poster === "N/A") ? noimage : this.state.item.Poster;
         return (
             <div className="col-md-3 card">
-                <a href={`http://imdb.com/title/${this.state.item.imdbID}`} target="_blank">
-                <img className="card-img-top" src={image} alt={this.state.item.Title} />
-                </a>
+                <Link to={"/id/" + this.state.item.imdbID}>
+                    <img className="card-img-top" src={image} alt={this.state.item.Title} />
+                </Link>
                 <div className="card-body">
-                    <p className="card-text text-center">{this.state.item.Title}</p>
+                    <p className="card-text text-center">{this.state.item.Title} ({this.state.item.Year})</p>
                 </div>
             </div>
         )
