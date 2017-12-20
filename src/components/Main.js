@@ -8,8 +8,8 @@ class Main extends Component {
         return (
             <main role="main" className="container">
                 <Switch>
-                    <Route exact path='/' component={MovieSearch} />
-                    <Route exact path='/id/:id' component={MovieDetails} />
+                    <Route exact path={process.env.PUBLIC_URL + '/'} component={MovieSearch} />
+                    <Route exact path={process.env.PUBLIC_URL + '/id/:id'} component={MovieDetails} />
                 </Switch>
             </main>
         )

@@ -6,7 +6,7 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
                 <div className="container">
-                    <Link to="/" className="navbar-brand">MovieSearch</Link>
+                    <Link to={process.env.PUBLIC_URL + '/'} className="navbar-brand">MovieSearch</Link>
                 </div>
             </nav>
         )

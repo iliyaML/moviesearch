@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import noimage from '../no_image_available.jpeg';
 
 class MovieDetails extends Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class MovieDetails extends Component {
 
     getMovieDetails() {
         const movieId = this.props.match.params.id;
-        axios.get(`http://www.omdbapi.com/?apikey=5b08bfa9&i=${movieId}`)
+        axios.get(`https://www.omdbapi.com/?apikey=5b08bfa9&i=${movieId}`)
             .then(response => {
                 this.setState({
                     movie: response.data
@@ -27,13 +28,14 @@ class MovieDetails extends Component {
 
     render() {
         const movie = this.state.movie;
+        const image = (movie.Poster === "N/A") ? noimage : movie.Poster;
         return (
             <div className="jumbotron">
                 <div className="row">
-                    <div className="col-md-4">
-                        <img src={movie.Poster} className="thumbnail" alt={movie.Title} />
+                    <div className="col-md-4 text-center">
+                        <img src={image} className="thumbnail" alt={movie.Title} className="img-fluid" />
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-8 mt-3">
                         <h2>{movie.Title}</h2>
                         <ul className="list-group">
                             <li className="list-group-item"><strong>Genre:</strong> {movie.Genre}</li>
@@ -47,12 +49,12 @@ class MovieDetails extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="well mt-3">
+                    <div className="well mt-3 p-3">
                         <h3>Plot</h3>
                         {movie.Plot}
                         <hr />
                         <a href={"http://imdb.com/title/" + movie.imdbID} target="_blank" className="btn btn-primary">View IMDB</a>
-                        <Link to="/" className="btn btn-default">Go Back To Search</Link>
+                        <Link to={process.env.PUBLIC_URL + '/'} className="btn btn-default">Go Back To Search</Link>
                     </div>
                 </div>
             </div>

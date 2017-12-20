@@ -14,7 +14,7 @@ class MovieItem extends Component {
         const image = (this.state.item.Poster === "N/A") ? noimage : this.state.item.Poster;
         return (
             <div className="col-md-3 card">
-                <Link to={"/id/" + this.state.item.imdbID}>
+                <Link to={process.env.PUBLIC_URL + '/id/' + this.state.item.imdbID}>
                     <img className="card-img-top" src={image} alt={this.state.item.Title} />
                 </Link>
                 <div className="card-body">
