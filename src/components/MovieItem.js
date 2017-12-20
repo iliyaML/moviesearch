@@ -3,7 +3,7 @@ import noimage from '../no_image_available.jpeg';
 import { Link } from 'react-router-dom';
 
 class MovieItem extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             item: props.item

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import MoviesList from './MoviesList';
 import axios from 'axios';
+import idbKeyval from 'idb-keyval';
 
 class MovieSearch extends Component {
     constructor() {
@@ -12,18 +13,31 @@ class MovieSearch extends Component {
 
     searchMovies(e) {
         e.preventDefault();
-        const input = this.refs.input.value;
+        const input = this.refs.input.value.toLowerCase();
 
-        axios.get(`https://www.omdbapi.com/?apikey=5b08bfa9&s=${input}`)
-            .then(response => {
-                console.log(response.data);
-                if (response.data.Response !== "False") {
-                    this.setState({
-                        items: response.data.Search
-                    }, () => console.log(this.state.items));
-                }
-            })
+        idbKeyval.get(input).then(val => {
+            console.log(val);
+            if (val !== undefined) {
+                this.setState({
+                    items: val
+                });
+            }
+
+            axios.get(`https://www.omdbapi.com/?apikey=5b08bfa9&s=${input}`)
+                .then(response => {
+                    let searchData = response.data.Search;
+                    if (response.data.Response !== "False") {
+                        idbKeyval.set(input, searchData);
+                        this.setState({
+                            items: searchData
+                        }, () => console.log(this.state.items));
+                    }
+                })
+                .catch(err => console.log(err));
+        })
             .catch(err => console.log(err));
+
+
     }
 
     render() {

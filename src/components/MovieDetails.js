@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import noimage from '../no_image_available.jpeg';
+import idbKeyval from 'idb-keyval';
 
 class MovieDetails extends Component {
     constructor(props) {
@@ -17,11 +18,26 @@ class MovieDetails extends Component {
 
     getMovieDetails() {
         const movieId = this.props.match.params.id;
-        axios.get(`https://www.omdbapi.com/?apikey=5b08bfa9&i=${movieId}`)
-            .then(response => {
-                this.setState({
-                    movie: response.data
-                }, () => console.log(this.state.movie));
+
+        idbKeyval.get(movieId)
+            .then(val => {
+                if (val !== undefined) {
+                    this.setState({
+                        movie: val
+                    });
+                }
+
+                axios.get(`https://www.omdbapi.com/?apikey=5b08bfa9&i=${movieId}`)
+                    .then(response => {
+                        let data = response.data;
+                        if (data.Response !== "False") {
+                            idbKeyval.set(movieId, data);
+                            this.setState({
+                                movie: data
+                            }, () => console.log(this.state.movie));
+                        }
+                    })
+                    .catch(err => console.log(err));
             })
             .catch(err => console.log(err));
     }
@@ -33,7 +49,7 @@ class MovieDetails extends Component {
             <div className="jumbotron">
                 <div className="row">
                     <div className="col-md-4 text-center">
-                        <img src={image} className="thumbnail" alt={movie.Title} className="img-fluid" />
+                        <img src={image} alt={movie.Title} className="img-fluid" />
                     </div>
                     <div className="col-md-8 mt-3">
                         <h2>{movie.Title}</h2>
