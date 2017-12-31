@@ -1,8 +1,11 @@
 {
   "name": "moviesearch",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "A progressive web app (PWA) that allows you to search movies from IMDB.",
   "private": true,
   "homepage": "https://iliyaml.github.io/moviesearch",
+  "author": "Iliya Mohamad Lokman",
+  "license": "MIT",
   "dependencies": {
     "axios": "^0.17.1",
     "gh-pages": "^1.1.0",
