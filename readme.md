@@ -1,6 +1,6 @@
 MovieSearch
 ======
-A *progressive web app* (PWA) that allows you to search movies from [IMDB](http://www.imdb.com/).
+A *progressive web app* (PWA) + *single page appliciation* (SPA) that allows you to search movies from [IMDB](http://www.imdb.com/) which is built using React.
 
 Demo: [MovieSearch](https://iliyaml.github.io/moviesearch/)
 
