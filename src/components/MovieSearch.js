@@ -4,8 +4,8 @@ import axios from 'axios';
 import idbKeyval from 'idb-keyval';
 
 class MovieSearch extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             items: []
         }
