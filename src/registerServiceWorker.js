@@ -46,7 +46,7 @@ export default function register() {
 function registerValidSW(swUrl) {
   navigator.serviceWorker
     .register(swUrl, {
-      scope: './'
+      scope: `./${process.env.PUBLIC_URL}`
     })
     .then(registration => {
       registration.onupdatefound = () => {
