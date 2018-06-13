@@ -4,19 +4,20 @@ import MovieSearch from './MovieSearch';
 import MovieDetails from './MovieDetails';
 
 class Main extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
+
+        this.state = {
+            online: navigator.onLine
+        }
 
         this.updateIndicator = this.updateIndicator.bind(this);
     }
 
     updateIndicator() {
-        // alert('You are currently ' + (navigator.onLine ? 'online' : 'offline'));
-        if (navigator.onLine) {
-            document.getElementById('networkAlert').style.display = "none";
-        } else {
-            document.getElementById('networkAlert').style.display = "block";
-        }
+        this.setState({
+            online: navigator.onLine
+        })
     }
 
     componentDidMount() {
@@ -27,11 +28,13 @@ class Main extends Component {
         window.addEventListener('online', this.updateIndicator);
         window.addEventListener('offline', this.updateIndicator);
 
+        const networkAlert = this.state.online ? '' : (<div className="alert alert-dark" role="alert" id="networkAlert">
+            You are currently offline so some functions may not work properly.
+            </div>);
+
         return (
             <main role="main" className="container">
-                <div className="alert alert-dark" role="alert" id="networkAlert">
-                    You are currently offline so some functions may not work properly.
-                </div>
+                {networkAlert}
                 <Switch>
                     <Route exact path={process.env.PUBLIC_URL + '/'} component={MovieSearch} />
                     <Route exact path={process.env.PUBLIC_URL + '/id/:id'} component={MovieDetails} />
