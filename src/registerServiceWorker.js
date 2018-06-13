@@ -45,9 +45,7 @@ export default function register() {
 
 function registerValidSW(swUrl) {
   navigator.serviceWorker
-    .register(swUrl, {
-      scope: `./${process.env.PUBLIC_URL}`
-    })
+    .register(swUrl)
     .then(registration => {
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
